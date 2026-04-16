@@ -1,30 +1,41 @@
 import time
 import random
 class pet:
-    def __init__(self, name, happiness, entertainment, hunger):
+    def __init__(self, name, hapyns, hngr):
         self.name = name
-        self.happiness = happiness
-        self.entertainment = entertainment
-        self.hunger = hunger
+        self.hapyns = hapyns
+        self.hngr = hngr
     def terminal(self):
         print("Pet name: ", self.name)
         print("Commands:")
         print("\"stats\"")
         print("\"feed\"")
         print("\"play\"")
-Charlie = pet("Charlie", 100, 100, 100)
-while Charlie.hunger > 0 or Charlie.happiness > 0:
+Charlie = pet("Charlie", 100, 100)
+print(Charlie.hapyns)
+while Charlie.hngr > 0 or Charlie.hapyns > 0:
     Charlie.terminal()
     command = input().lower()
     if command == "stats":
-        print("Name", Charlie.name)
-        print("Happiness", Charlie.happiness)
-        print("Entertainment", Charlie.entertainment)
-        print("Hunger", Charlie.hunger)
+        print("Name:", Charlie.name)
+        print("Happiness:", Charlie.hapyns)
+        print("Hunger:", Charlie.hngr)
+        time.sleep(5)
     elif command == "feed":
-        if Charlie.hunger > 90:
+        if Charlie.hngr > 95:
             print("He's full.")
         else:
-            Charlie.hunger += randint(5, 15)
+            Charlie.hngr += random.randint(20, 35)
+            print("Charlie fed.")
+        time.sleep(5)
     elif command == "play":
-        Charlie.happiness += (20/(Charlie.happiness))//1
+        Charlie.hapyns += round(20 / (Charlie.hapyns * (1 + (Charlie.hngr / 100)) // 1), 1)
+        Charlie.hngr -= random.randint(2, 6)
+        print("Playing with Charlie...")
+        time.sleep(5)
+    else:
+        print("Invalid action")
+    Charlie.hngr -= random.randint(3, 9)
+    if Charlie.hapyns > 100:
+        Charlie.hapyns = 100
+    Charlie.hapyns -= round((random.randint(2, 3) * ((1 + (1 - (Charlie.hngr / 100)))**2)), 1)
